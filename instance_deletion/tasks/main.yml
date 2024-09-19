@@ -1,9 +1,12 @@
 ---
 # tasks file for instance_deletion
-- host: all
-  become: true
-  task:
+
    - name: Show facts available on the system
      ansible.builtin.debug:
       var: ansible_facts
+
+   - name: shutdown the servers
+     ansible.builtin.command: /sbin/shutdown -t now
+     when: ansible_facts['os_family'] == "RedHat" or ansible_facts['os_family'] == "Debian"
+     
    
