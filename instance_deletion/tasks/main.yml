@@ -1,0 +1,9 @@
+---
+# tasks file for instance_deletion
+- host: all
+  become: true
+  task:
+   - name: Show facts available on the system
+     ansible.builtin.debug:
+      var: ansible_facts
+   

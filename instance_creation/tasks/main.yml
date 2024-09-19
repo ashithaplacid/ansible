@@ -1,0 +1,22 @@
+---
+# tasks file for instance_creation
+- name: Create 3 instance with public IP address
+  amazon.aws.ec2_instance:
+    name: "{{ item.instance }}"
+    key_name: "ashitha_aws"
+    #vpc_subnet_id: subnet-5ca1ab1e
+    instance_type: t2.micro
+    security_group: default
+    aws_access_key: "{{aws_access_key}}"
+    aws_secret_key: "{{aws_secret_key}}"
+    network:
+      assign_public_ip: true
+    image_id: "{{ item.image }}"
+    tags:
+      Environment: "{{ item.instance }}"
+  loop:                                                               # make sure indentation
+    - { image: "ami-0ebfd941bbafe70c6", instance: "managed_node_01" }
+    - { image: "ami-0ebfd941bbafe70c6", instance: "managed_node_02" }
+    - { image: "ami-0e86e20dae9224db8", instance: "managed_node_03" }
+
+       
